@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- quill -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
+            rel="stylesheet" />
+        <!-- quill -->
+        <title></title>
+    </head>
+    <body>
+        <script>
+            let A=[<%- A %>];
+        </script>
+        <p>
+            Студент: <%= name %><br />
+            Билет: <%= ticket %><br />
+        </p>
+        <% let question=0; 
+          Q.forEach( (a) =>{ %>
+            <p><b>Вопрос <%= 1+question %></b>: <%= Q[question] %></p>
+            <div id="A<%= 1+question++ %>"></div>
+            <hr/>
+        <% }) %>
+
+        <!-- quill -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js">
+        </script>
+        <script>
+            let i=0;
+            A.forEach( (el) => {
+                const qel=new Quill(`#A${i+1}`,{theme: 'snow'});
+                qel.setContents(el);
+                i++;
+            });
+        </script>
+        <!-- quill -->
+    </body>
+</html>

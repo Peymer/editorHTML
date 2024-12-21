@@ -21,7 +21,7 @@ const toolbarOptions = [
 
 const initialData = {
     name: 'Wall-E',
-    location: 'Earth',
+    ticket: 1,
     // `about` is a Delta object
     // Learn more at: https://quilljs.com/docs/delta
     about: [
@@ -32,7 +32,7 @@ const initialData = {
     ],
   };
   
-  const quill = new Quill('#editor', {
+  const quill1 = new Quill('#Q1', {
     modules: {
         toolbar : toolbarOptions,
             
@@ -44,11 +44,24 @@ const initialData = {
     },
     theme: 'snow',
   });
-  
+
+  const quill2 = new Quill('#Q2', {
+    modules: {
+        toolbar : toolbarOptions,
+            
+    //   toolbar: [
+    //     ['bold', 'italic'],
+    //     ['link', 'blockquote', 'code-block', 'image'],
+    //     [{ list: 'ordered' }, { list: 'bullet' }],
+    //   ],
+    },
+    theme: 'snow',
+  });
+
   const resetForm = () => {
     document.querySelector('[name="name"]').value = initialData.name;
-    document.querySelector('[name="location"]').value = initialData.location;
-    quill.setContents(initialData.about);
+    document.querySelector('[name="ticket"]').value = initialData.location;
+    quill1.setContents(initialData.about);
   };
   
   resetForm();
@@ -56,7 +69,8 @@ const initialData = {
   const form = document.querySelector('form');
   form.addEventListener('formdata', (event) => {
     // Append Quill content before submitting
-    event.formData.append('about', JSON.stringify(quill.getContents().ops));
+    event.formData.append('Q1', JSON.stringify(quill1.getContents().ops));
+    event.formData.append('Q2', JSON.stringify(quill2.getContents().ops));
   });
   
   document.querySelector('#resetForm').addEventListener('click', () => {

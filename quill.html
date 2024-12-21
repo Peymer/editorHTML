@@ -1,30 +1,56 @@
 <html lang="ru">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
+    <link
+        href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
         rel="stylesheet" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.bubble.css"  rel="stylesheet"/> -->
-    <link rel="stylesheet" href="./quill.css" />
+    <!-- <link rel="stylesheet" href="./quill.css" /> -->
 
-    <div class="container">
-        <form action="https://httpbin.org/post" method="post">
+    <!-- <div class="container"> -->
+        <form action="/ejs" method="post">
             <div class="form-group">
-                <label for="name">Display name</label>
+                <label for="name">Фамилия</label>
                 <input id="name" name="name" type="text">
             </div>
             <div class="form-group">
-                <label for="location">Location</label>
-                <input id="location" name="location" type="text">
+                <label for="ticket">Билет</label>
+                <input id="ticket" name="ticket" type="text">
             </div>
-            <div class="form-group">
-                <label>About me</label>
-                <div id="editor"></div>
-            </div>
+
+            <!-- <div class="form-group"> -->
+                <label for="A1">Вопрос 1</label>
+                <div id="A1" ></div>
+            <!-- </div> -->
+
+            <!-- <div class="form-group"> -->
+                <label for="A2">Вопрос 2</label>
+                <div id="A2"></div>
+            <!-- </div> -->
             <button type="submit">Submit Form</button>
-            <button type="button" id="resetForm">Reset to Initial Data</button>
         </form>
-    </div>
+    <!-- </div> -->
 
     <script
-        src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
-    <script src="./quill.js"></script>
+        src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js">
+    </script>
+    <!-- <script src="./quill.js"></script> -->
+    <script>
+        const quill1 = new Quill('#A1', {
+            theme: 'snow',
+        });
+        const quill2 = new Quill('#A2', {
+            theme: 'snow',
+        });
+//        quill.setContents(<%- Q[question] %>);
+        const form = document.querySelector('form');
+        form.addEventListener('formdata', (event) => {
+            // Append Quill content before submitting
+            event.formData.append('A1', JSON.stringify(quill1.getContents().ops));
+            event.formData.append('A2', JSON.stringify(quill2.getContents().ops));
+        });
+    </script>
+
 </html>
