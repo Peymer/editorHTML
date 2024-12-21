@@ -12,18 +12,22 @@
         <title></title>
         <script
             src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js">
-        </script>    </head>
+        </script>
+        <script>
+            let A=[];
+        </script>
+    </head>
     <body>
         <form action="/ejs" method="post">
             <label for="name">Фамилия</label><input type="text" name="name"/>
             <label for="ticket">Билет №</label><input type="text" name="ticket"/>
             <% let question=0;
                 Q.forEach( (el) => {%>
-                    <p>Вопрос <%= question+1 %>: <%=Q[question]%></p>
-                    <div id="A[<%=question%>]"></div>
+                    <p><b>Вопрос <%= question+1 %></b>: <%=Q[question]%></p>
+                    <div id="A<%=question%>"></div>
                     <script>
                         // const qel<%=question%>=
-                        A.push(new Quill('#A[<%=question%>]', {
+                        A.push(new Quill('#A<%=question%>', {
                             theme: 'snow',
                         }));
                     </script>
@@ -34,16 +38,23 @@
 
         <script>
             const form = document.querySelector('form');
-            // let A=[];
             let i=0;
-            Q.forEach( (el) => {
-alert(JSON.stringify(A[i].getContents().ops));
-                // form.addEventListener('formdata', (event) => {
-                //     event.formData.append('A1', JSON.stringify(quill1.getContents().ops));
-            //         event.formData.append('A2', JSON.stringify(quill2.getContents().ops));
-                // });
-                i++;
-            });
+        
+        form.addEventListener('formdata', (event) => {
+           <% let iq=0; Q.forEach((el)=>{ %>
+            event.formData.append('A', JSON.stringify(A[<%=iq%>].getContents().ops));
+            <% iq++;    }); %>
+        });
+
+
+            // Q.forEach( (el) => {
+            //     alert(JSON.stringify(A[i].getContents().ops));
+            //     // form.addEventListener('formdata', (event) => {
+            //     //     event.formData.append('A1', JSON.stringify(quill1.getContents().ops));
+            // //         event.formData.append('A2', JSON.stringify(quill2.getContents().ops));
+            //     // });
+            //     i++;
+            // });
         </script>
         <!-- quill -->
     </body>

@@ -19,13 +19,13 @@
             Студент: <%= name %><br />
             Билет: <%= ticket %><br />
         </p>
-        <% let question=0; 
-          Q.forEach( (a) =>{ %>
-            <p><b>Вопрос <%= 1+question %></b>: <%= Q[question] %></p>
-            <div id="A<%= 1+question++ %>"></div>
-            <hr/>
+        <% let question=0;
+        Q.forEach( (a) =>{ %>
+        <p><b>Вопрос <%= 1+question %></b>: <%= Q[question] %></p>
+        <div id="A<%= 1+question++ %>"></div>
+        <hr />
         <% }) %>
-
+        <center><a href="/">Следующий</a></center>
         <!-- quill -->
         <script
             src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js">
