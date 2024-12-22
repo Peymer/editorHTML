@@ -20,7 +20,7 @@ export let qlist = (filename) => {
     let qq=[];
     let plainQuestions=readFileLines(filename);
 
-    console.log(plainQuestions);
+// console.log(plainQuestions);
 
     plainQuestions.forEach(el => {
         if (el.toUpperCase().includes("БИЛЕТ")){
@@ -40,52 +40,4 @@ export let qlist = (filename) => {
     return questionList;
 }
 
-console.log(qlist('questions1.txt'));
-// import LineReader from 'line-reader';
-
-// let ticket, question;
-// let i = 0; // номер вопроса в билете
-// // let Q = []; // массив вопросов
-
-// function Ticket(t, q) {
-//     return {
-//         Ticket: t,
-//         Questions: q,
-//     };
-// }
-
-// function getQuestions() {
-//     let Q = []; // массив вопросов
-
-//     var Questions = [];
-//     var qq;
-
-//     LineReader.eachLine("questions1.txt", (line, last) => {
-//             if (line.toUpperCase().includes("БИЛЕТ")) {
-//                 ticket = line.trim().substring(5);
-//                 if (typeof qq !== 'undefined') {
-//                     qq.Questions = Questions;
-//                     Q.push(qq);
-//                     qq = new Ticket(ticket);
-//                     Questions = [];
-//                 }
-
-//                 else
-//                     qq = new Ticket(ticket);
-//             }
-//             else {
-//                 Questions.push(line.trim());
-//             }
-//             if (last) {
-//                 qq.Questions = Questions;
-//                 Q.push(qq);
-                
-//                 // return Q;
-//             }
-//         });
-//     return Q;
-// }
-
-
-// let B=getQuestions();
-// console.log(B);
+// console.log(qlist('questions1.txt'));
