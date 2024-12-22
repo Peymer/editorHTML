@@ -4,6 +4,11 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+            crossorigin="anonymous">
         <!-- quill -->
         <link
             href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
@@ -12,32 +17,37 @@
         <title></title>
     </head>
     <body>
-        <script>
+        <div class="container">
+            <script>
             let A=[<%- A %>];
         </script>
-        <p>
-            Студент: <%= name %><br />
-            Билет: <%= ticket %><br />
-        </p>
-        <% let question=0;
-        Q.forEach( (a) =>{ %>
-        <p><b>Вопрос <%= 1+question %></b>: <%= Q[question] %></p>
-        <div id="A<%= 1+question++ %>"></div>
-        <hr />
-        <% }) %>
-        <center><a href="/">Следующий</a></center>
-        <!-- quill -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js">
+            <h2 align="center">Студент: <%=name%></h2>
+            <h3 align="center">Билет № <%=ticket%></h3>
+            <hr/>
+            <% let question=0;
+            Q.forEach( (a) =>{ %>
+            <p><b>Вопрос <%= 1+question %></b>: <%= Q[question] %></p>
+            <div id="A<%= 1+question++ %>"></div>
+            <hr />
+            <% }) %>
+            <center><a href="/">Следующий студент</a></center>
+            <!-- quill -->
+            <script
+                src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js">
         </script>
-        <script>
+            <script>
             let i=0;
             A.forEach( (el) => {
-                const qel=new Quill(`#A${i+1}`,{theme: 'snow'});
+                const qel=new Quill(`#A${i+1}`,{  modules: {
+    toolbar: null
+  }, theme: 'snow'});
                 qel.setContents(el);
+                qel.enable(false);
                 i++;
             });
         </script>
-        <!-- quill -->
+            <!-- quill -->
+        </div>
+
     </body>
 </html>
