@@ -1,3 +1,17 @@
-Вопрос первый очень важный. Вопрос первый очень важный. Вопрос первый очень важный. Вопрос первый очень важный. Вопрос первый очень важный. Вопрос первый очень важный. Вопрос первый очень важный.
-Вопрос второй, на который ответить не может никто. Вопрос второй, на который ответить не может никто. Вопрос второй, на который ответить не может никто. Вопрос второй, на который ответить не может никто. Вопрос второй, на который ответить не может никто.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Билет1
+Вопрос0
+Вопрос1
+Вопрос2
+Билет2
+Вопрос3
+вопрос4
+вопрос5
+Билет3
+Вопрос6
+вопрос7
+вопрос8
+Билет4
+Вопрос9
+вопрос10
+вопрос11
+вопрос12

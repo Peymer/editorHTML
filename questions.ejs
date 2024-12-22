@@ -30,7 +30,7 @@
                 <h3 align="center">Билет № <%=ticket%></h3>
                 <input type="hidden" value="<%=ticket%>" name="ticket" />
                 <br/><hr/>
-                <!-- </label><input type="text" class="form-control" value="<%=ticket%>" name="ticket" /> -->
+                <%= Q %>
                 <% let question=0;
                 Q.forEach( (el) => {%>
                 <p><b>Вопрос <%= question+1 %></b>: <%=Q[question]%></p>
