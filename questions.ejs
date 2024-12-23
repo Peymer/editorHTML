@@ -24,41 +24,35 @@
     </head>
     <body>
         <div class="container">
+            <b>Студент</b>: <%=name%><br/>
+            <b>Билет</b>: <%=ticket%></br/>
             <form action="/ejs" method="post">
-                <h2 align="center">Студент: <%=name%></h2>
-                <input type="hidden" value="<%=name%>" name="name" />
-                <h3 align="center">Билет № <%=ticket%></h3>
-                <input type="hidden" value="<%=ticket%>" name="ticket" />
-                <br/><hr/>
-                <%= Q %>
-                <% let question=0;
-                Q.forEach( (el) => {%>
-                <p><b>Вопрос <%= question+1 %></b>: <%=Q[question]%></p>
-                <div id="A<%=question%>"></div>
-                <script>
-                        // const qel<%=question%>=
-                        A.push(new Quill('#A<%=question%>', {
-                            theme: 'snow',
-                        }));
-                    </script>
-                <%question++; })%>
-                <input type="submit" class="form-control btn btn-primary"/>
+                <input  type="hidden" name="name" value="<%=name%>"/>
+                <input type="hidden" name="ticket" value="<%=ticket%>"/>
+                <ul>
+                    <% let question=0; Q.forEach(el => {%> 
+                        <li><%= el %></li>
+                        <div id="A<%=question%>"></div>
+                        <script>
+                            A.push(new Quill('#A<%=question%>', {
+                                theme: 'snow',
+                            }));
+                        </script>
+                    <% question++; })%>
+                </ul>
+                <button class="btn-primary submit">Отправить</button>
             </form>
-        </div>
-        <!-- quill -->
-
-        <script>
+         </div>
+         <script>
             const form = document.querySelector('form');
             let i=0;
-        
-        form.addEventListener('formdata', (event) => {
-           <% let iq=0; 
-           Q.forEach((el)=>{ %>
-            event.formData.append('A', JSON.stringify(A[<%=iq%>].getContents().ops));
-            <% iq++;    }); %>
-        });
-
-        </script>
-        <!-- quill -->
+            
+            form.addEventListener('formdata', (event) => {
+                <% let iq=0; 
+                Q.forEach((el)=>{ %>
+                    event.formData.append('A', JSON.stringify(A[<%=iq%>].getContents().ops));
+                    <% iq++;}); %>
+            });
+         </script>
     </body>
 </html>
