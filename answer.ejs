@@ -21,8 +21,8 @@
             <script>
             let A=[<%- A %>];
         </script>
-            <h2 align="center">Студент: <%=name%></h2>
-            <h3 align="center">Билет № <%=ticket%></h3>
+            <h2 class="text-center">Студент: <%=name%></h2>
+            <h3 lass="text-center">Билет № <%=ticket%></h3>
             <hr/>
             <% let question=0;
             Q.forEach( (a) =>{ %>
@@ -30,7 +30,7 @@
             <div id="A<%= 1+question++ %>"></div>
             <hr />
             <% }) %>
-            <center><a href="/">Следующий студент</a></center>
+            <div class="text-center"><a href="/loginprep">Следующий студент</a></div>
             <!-- quill -->
             <script
                 src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js">

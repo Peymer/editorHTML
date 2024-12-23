@@ -1,10 +1,12 @@
 import fs from 'node:fs';
 
+var isWin = process.platform === "win32";
+
 const readFileLines = filename =>
     fs
       .readFileSync(filename)
       .toString('UTF8')
-      .split('\r\n');
+      .split(isWin?'\r\n':'\n');
 
 
 let questionList = [];

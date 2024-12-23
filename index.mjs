@@ -6,13 +6,15 @@ import Fv from '@fastify/view';
 import Furl from '@fastify/formbody';
 import lr from 'line-reader';
 import {qlist} from './loadtickets.mjs';
-import Datastore from 'nedb';
+import Datastore from 'nedb-promises';
 
 let Q=qlist("questions.txt");
 
 //СУБД NeDB
-var db = new Datastore({filename : 'answers'});
+var db = Datastore.create({filename : 'answers'});
 db.loadDatabase();
+// NeDB
+
 
 let students=[];
 lr.eachLine("students.txt", (line)=>{
@@ -24,7 +26,7 @@ const server=F({
     logger: true
   });
 
- server.register(Furl) ;
+server.register(Furl);
 
 server.register(Fs,{
   root: path.join(__dirname,"/"),
@@ -59,57 +61,45 @@ server.get("/q", async (q,a) => {
   return a.view('questions.ejs', {name: name, ticket: ticket, Q: Q[ticket-1].Questions});
 });
 
-// server.post("/q", async (q,a)=>{
-//   let {name, ticket} = q.body;
-//   if (students.findIndex((el)=> el == name) >= 0){
+server.post("/q", async (q,a)=>{
+  let {name, ticket} = q.body;
+  if (students.findIndex((el)=> el == name) >= 0){
+    return a.view('questions.ejs', {name: name, ticket: ticket, Q: Q[ticket].Questions});
+  }
+  else{
+    return a.redirect("/");
+  }
+});
 
-//   //neDb
-//     return a.view('questions.ejs', {name: name, ticket: ticket, Q: Q[ticket]});
-//   }
-//   else{
-//     return a.redirect("/");
-//   }
-// });
 server.get("/a", async (q,a)=>{
-  let name="Иванопуло";
-  let ticket=1;
-  let msg;
-  let aaaa=db.find({name:name});
-  console.log(aaaa);
+  // let name="Иванопуло";
+  // let ticket=1;
 
-  db.find({name: name}, function (err, docs) {
-    if (err) 
-      msg=`db error find ${err}`;
-    else{
-      msg=docs[0];
-      console.dir(docs[0]);
-      console.dir(msg);
-      return a.send(msg);
-    }
-  });
+  let aaaa=await db.find({});
+  
+  aaaa.forEach(el => { console.log(el)});
+  return a.send({aaaa});
 });
 
 server.post("/ejs", async (q,a)=>{
   let {name, ticket, A} = q.body;
  
   //neDb
-  db.insert({name : name, ticket: Number(ticket), A:A}, (err)=>{if (err) console.log(`db error ${err}`)});
+  db.insert({name : name, ticket: Number(ticket), A:A});
+  return a.redirect("/");
+});
 
-//  console.log('before update');
-//  db.find({name: name, ticket: Number(ticket)}, function (err, docs) {
-//     if (err) 
-//       console.log(`db error find ${err}`);
-//     console.log(docs);
-//   });
+server.get("/loginprep", async (q,a) => {
+  return a.sendFile("loginprep.html");
+});
 
-//   db.update({name: name, ticket: Number(ticket)}, {name:name,ticket:Number(ticket),A:A}, {}, (err, numberOfUpdated)=>{if (err) console.log(`db error update ${err}`); console.log(numberOfUpdated);});
+server.post("/prep", async (q,a) => {
+  let {name} = q.body;
   
-//   console.log('after update');
-//   db.find({name: name, ticket: Number(ticket)}, function (err, docs) {
-//     if (err) 
-//       console.log(`db error find ${err}`);
-//     console.log(docs);
-//   });
+  
+  let AA=await db.findOne({name:name});
+  let ticket=AA.ticket;
+  let A=AA.A;
 
   return a.view('answer.ejs', {name: name, ticket: ticket, Q: Q[ticket].Questions, A:A})
 });
