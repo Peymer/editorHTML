@@ -1,1 +1,2 @@
-{"name":"Иванопуло","ticket":1,"A":["[{\"insert\":\"a\\n\"}]","[{\"insert\":\"b\\n\"}]","[{\"insert\":\"c\\n\"}]"],"_id":"EQpi5xfiMBH6DnLx"}
+{"name":"Иванов","ticket":3,"A":["[{\"insert\":\"йцй\\n\"}]","[{\"insert\":\"йуйцукцу\\n\"}]","[{\"insert\":\"цуйкцукйцу\\n\"}]","[{\"insert\":\"уцйкцуйкйцу\\n\"}]"],"_id":"iRTZwouQJ50XiJaa"}
+{"name":"Петров","ticket":2,"A":["[{\"insert\":\"ыва \"},{\"attributes\":{\"bold\":true},\"insert\":\"авпывапывап \"},{\"insert\":\"вапвыапва \\n\"}]","[{\"insert\":\"ццц\\n\"}]","[{\"insert\":\"уууу\\n\"}]"],"_id":"llhzOT4avFZLBpxb"}
