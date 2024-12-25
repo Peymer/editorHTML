@@ -28,7 +28,7 @@ export let qlist = (filename) => {
         if (el.toUpperCase().includes("БИЛЕТ")){
             if (qq.length > 0){
                 questionList.push(new Ticket(ticket, qq));
-                ticket = el.substring(5);
+                ticket = Number(el.substring(5));
                 qq=[];
             }
             else

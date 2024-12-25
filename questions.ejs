@@ -24,10 +24,11 @@
     </head>
     <body>
         <div class="container">
-            <b>Студент</b>: <%=name%><br/>
+            <b>Студент</b>: <%=name%> <%=surname%><br/>
             <b>Билет</b>: <%=ticket%></br/>
             <form action="/ejs" method="post">
                 <input  type="hidden" name="name" value="<%=name%>"/>
+                <input  type="hidden" name="surname" value="<%=surname%>"/>
                 <input type="hidden" name="ticket" value="<%=ticket%>"/>
                 <ul>
                     <% let question=0; Q.forEach(el => {%> 

@@ -8,19 +8,22 @@ import lr from 'line-reader';
 import {qlist} from './loadtickets.mjs';
 import Datastore from 'nedb-promises';
 
-let Q=qlist("questions.txt");
+// let Q=qlist("questions.txt");
 
 //СУБД NeDB
-var db = Datastore.create({filename : 'answers'});
-db.loadDatabase();
+var db = Datastore.create({filename : 'answers.db', autoload: true});
+var students = Datastore.create({filename : 'students.db', autoload: true});
+var questions = Datastore.create({filename : 'questions.db', autoload: true});
+// db.loadDatabase();
 // NeDB
 
+// чтение студентов из файла
+// let students=[];
+// lr.eachLine("students.txt", (line)=>{
+//   students.push(line.trim());
+// });
 
-let students=[];
-lr.eachLine("students.txt", (line)=>{
-  students.push(line.trim());
-});
-
+var group='3ПС5';
 const __dirname=import.meta.dirname;
 const server=F({
     logger: true
@@ -52,21 +55,24 @@ server.get("/", async (q,a)=>{
   return a.sendFile("login.html");
 });
 
-server.get("/q", async (q,a) => {
-  let name="Иванопуло";
-  let ticket=1;
-    //neDb
-    // db.insert({name : name, ticket: ticket}, (err)=>{if (err) console.log(`db error ${err}`)});
+// server.get("/q", async (q,a) => {
+//   let name="Иванопуло";
+//   let ticket=1;
+//     //neDb
+//     // db.insert({name : name, ticket: ticket}, (err)=>{if (err) console.log(`db error ${err}`)});
 
-  return a.view('questions.ejs', {name: name, ticket: ticket, Q: Q[ticket-1].Questions});
-});
+//   return a.view('questions.ejs', {name: name, ticket: ticket, Q: Q[ticket-1].Questions});
+// });
 
 server.post("/q", async (q,a)=>{
   let {name, ticket} = q.body;
-  if (students.findIndex((el)=> el == name) >= 0){
-    return a.view('questions.ejs', {name: name, ticket: ticket, Q: Q[ticket].Questions});
-  }
-  else{
+  // проверка на студента
+  let stud = await students.findOne({group: group, name: name});
+  if (stud){
+    let QQ=await questions.findOne({group: group, t:Number(ticket)});
+    let Q=QQ.questions;
+    return a.view('questions.ejs', {name: stud.name, surname: stud.surname, ticket: ticket, Q: Q});
+  }else{
     return a.redirect("/");
   }
 });
@@ -98,10 +104,16 @@ server.post("/prep", async (q,a) => {
   
   
   let AA=await db.findOne({name:name});
-  let ticket=AA.ticket;
-  let A=AA.A;
+  if (AA){
+    let QQ=await questions.findOne({group:group, t: Number(AA.ticket)});
+    let Q=QQ.questions;
+    let ticket=AA.ticket;
+    let A=AA.A;
 
-  return a.view('answer.ejs', {name: name, ticket: ticket, Q: Q[ticket].Questions, A:A})
+    return a.view('answer.ejs', {name: name, ticket: ticket, Q: Q, A:A});
+  }else{
+    return a.redirect("/loginprep");
+  }
 });
 
 // server.setErrorHandler(async (error, q,a)=>{
