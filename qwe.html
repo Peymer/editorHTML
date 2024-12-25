@@ -1,8 +1,55 @@
 <!DOCTYPE html>
 <html lang="ru">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+        crossorigin="anonymous">
+    <!-- quill -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
+        rel="stylesheet" />
+    <!-- quill -->
+    <title></title>
+    <!-- katex -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css"
+        integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0"
+        crossorigin="anonymous">
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"
+        integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1"
+        crossorigin="anonymous"></script>
+    <!-- katex -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js">
+</script>
+
     <form action="q1" method="post">
         <input type="text" name="QQ" />
         <input type="text" name="QQ" />
-        <input type="submit"/>
+        <div id="editor"></div>
+        <input type="submit" />
     </form>
+    <script>
+            
+            let q = new Quill('#editor', {
+                modules: {
+                    // formula: true,
+                    toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['image', 'blockquote', 'code-block'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],
+                    [{ 'size': ['small', false, 'large', 'huge'] }],
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    [{ 'color': [] }, { 'background': [] }],
+                    [{ 'font': [] }],
+                    [{ 'align': [] }],
+                    ['formula', 'clean']     
+                    ]                
+                },
+                theme: 'snow',
+            });
+    </script>
 </html>
