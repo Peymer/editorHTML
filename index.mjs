@@ -12,6 +12,7 @@ import Datastore from 'nedb-promises';
 var db = Datastore.create({filename : 'answers.db', autoload: true});
 var students = Datastore.create({filename : 'students.db', autoload: true});
 var questions = Datastore.create({filename : 'questions.db', autoload: true});
+var tablo = Datastore.create({filename : 'tablo.db', autoload: true});
 // db.loadDatabase();
 // NeDB
 
@@ -78,10 +79,28 @@ server.post("/q", async (q,a)=>{
     ticket=newTicket();
     let QQ=await questions.findOne({group: group, t:Number(ticket)});
     let Q=QQ.questions;
+    await tablo.insert({name: stud.name, surname: stud.surname, sid:stud._id, tacket:ticket, time:new Date().toLocaleTimeString(), active: true});
     return a.view('questions.ejs', {name: stud.name, surname: stud.surname, ticket: ticket, Q: Q});
   }else{
     return a.redirect("/");
   }
+});
+
+server.get("/mark", async (q,a)=>{
+  let name=q.query.name;
+ await  tablo.update({name: name}, {$set: {active:false}});
+ return a.send({ok:'ok'});
+});
+
+server.post('/deactivate',  async (q,a) =>{
+  let {sid} = a.body;
+  // tablo.update({sid: sid}, {$set: {active:false}});
+  return a.code(200).send('ok');
+});
+
+server.get("/tablo", async (q,a)=>{
+  let active=await tablo.find({active: true});
+  return a.view("tablo.ejs", {active:active});
 });
 
 server.post("/ejs", async (q,a)=>{

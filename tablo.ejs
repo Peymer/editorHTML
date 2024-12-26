@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Refresh" content="60" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+            crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        </head>
+    <body>
+        <div class="container">
+            <h1 class="ranslate-middle"><%= new Date().toLocaleTimeString()%></h1>
+            <table class="table">
+                <tbody>
+                    <% let i=1; active.forEach( el =>{ %>
+                        <tr class="<%(el.active)?'table-light':'table-primary'%>">
+                            <th scope="row"><%=i++;%></th>
+                            <td><%=el.name%> <%=el.surname%></td>
+                            <td><%=el.tacket%></td>
+                            <td><%=el.time%></td>
+                            <!-- <td><button class="btn-primary" onclick="deactivate('<%=el._id%>');return false;">+</button></td> -->
+                        </tr>
+                    <%})%>
+                </tbody>
+            </table>
+        </div>
+        <script>
+            // const axios = require('axios/dist/browser/axios.cjs'); // browser
+            const deactivate =  async (sid) => { 
+                try {
+                    const resp = await axios.post('deactivate', {sid: sid})
+                    console.log(resp.data);
+                }
+                catch (err) {
+                    console.error(err.toJSON());
+                }
+            }
+        </script>
+    </body>
+</html>
