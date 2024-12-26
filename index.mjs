@@ -101,8 +101,7 @@ server.get("/loginprep", async (q,a) => {
 
 server.post("/prep", async (q,a) => {
   let {name} = q.body;
-  
-  
+  let stud=await students.findOne({group: group, name:name})  
   let AA=await db.findOne({name:name});
   if (AA){
     let QQ=await questions.findOne({group:group, t: Number(AA.ticket)});
@@ -110,7 +109,7 @@ server.post("/prep", async (q,a) => {
     let ticket=AA.ticket;
     let A=AA.A;
 
-    return a.view('answer.ejs', {name: name, ticket: ticket, Q: Q, A:A});
+    return a.view('answer.ejs', {name: name, surname:stud.surname, ticket: ticket, Q: Q, A:A});
   }else{
     return a.redirect("/loginprep");
   }
