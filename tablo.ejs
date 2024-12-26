@@ -18,12 +18,13 @@
             <table class="table">
                 <tbody>
                     <% let i=1; active.forEach( el =>{ %>
-                        <tr class="<%(el.active)?'table-light':'table-primary'%>">
+                        <tr class="<%=(el.status == 'R')?'table-light':(el.status=='F')?'table-success':'table-primary'%>">
                             <th scope="row"><%=i++;%></th>
                             <td><%=el.name%> <%=el.surname%></td>
                             <td><%=el.tacket%></td>
                             <td><%=el.time%></td>
                             <!-- <td><button class="btn-primary" onclick="deactivate('<%=el._id%>');return false;">+</button></td> -->
+                             <td><a href="/mark?id=<%=el.sid%>">+</a></td>
                         </tr>
                     <%})%>
                 </tbody>
