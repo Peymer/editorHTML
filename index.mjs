@@ -41,23 +41,19 @@ server.register(Fs,{
 //   return a.sendFile(name);
 // });
 
-// server.post("/q1", async (q,a) =>{
-//   let QQ=q.body["QQ"];
-//   return a.send(QQ);
-// });
+server.get("/start", async (q,a) =>{
+  return a.sendFile('config.html');
+});
+
+server.post("/start-config", async (q,a) =>{
+  group= q.body.group;
+  console.log(`Группа изменена на ${group}`);
+  return a.send("Done");
+});
 
 server.get("/", async (q,a)=>{
   return a.sendFile("login.html");
 });
-
-// server.get("/q", async (q,a) => {
-//   let name="Иванопуло";
-//   let ticket=1;
-//     //neDb
-//     // db.insert({name : name, ticket: ticket}, (err)=>{if (err) console.log(`db error ${err}`)});
-
-//   return a.view('questions.ejs', {name: name, ticket: ticket, Q: Q[ticket-1].Questions});
-// });
 
 function newTicket(){
   let bilet;
@@ -132,7 +128,9 @@ server.post("/prep", async (q,a) => {
 //   return a.sendFile(path.join(__dirname,'404.html'));
 // });
 
-server.listen({ port: 3000 }, (err, address) => {
+server.listen({ port: 3000, host: '0.0.0.0' }, (err, address) => {
     if (err) throw err
     console.log(`Server is now listening on ${address}`);
+    console.log(`Запустите ${address}/start и установите группу.`);
+    console.log(`Для группы ${group}`);
   });
